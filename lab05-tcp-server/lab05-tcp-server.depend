@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1522948116 source:c:\users\11olo\documents\cpp\lab05-tcp-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	"listing.h"
+
+1522946605 c:\users\11olo\documents\cpp\lab05-tcp-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+

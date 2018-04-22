@@ -1,0 +1,161 @@
+ _       _      ___ _____                                 _   
+| | __ _| |__  / _ \___ /       _ __ ___ _ __   ___  _ __| |_ 
+| |/ _` | '_ \| | | ||_ \ _____| '__/ _ \ '_ \ / _ \| '__| __|
+| | (_| | |_) | |_| |__) |_____| | |  __/ |_) | (_) | |  | |_ 
+|_|\__,_|_.__/ \___/____/      |_|  \___| .__/ \___/|_|   \__|
+                                        |_|                   
+						ОТЧЁТ	
+				
+			Лабораторная работа № 3. Блокирующие UDP-сокеты
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+								Выполнил: 	ст. гр. А-02-14
+										Мазуркевич С.П.
+												
+								Дата выполнения:   	20.03.18
+												
+												
+												
+						Москва
+						2018 г.
+									
+ _______________________________________________________________________________________________
+
+
+
+1.(12) Убедитесь, что сообщение доставлено в программу. Зафиксируйте команду вызова ncat и вывод 
+собственной программы для отчета.
+	ПРОГРАММА:
+	Listening address:
+  	host: 127.0.0.1
+   	port: 1234
+	(R)eceive, (s)end, or (q)uit? r	
+
+	КОМАНДА ВЫЗОВА В КОНСОЛИ:	
+	C:\>echo ALLO, ETO TI? | ncat 127.0.0.1 1234 -u
+	
+	ПРОГРАММА:
+	Listening address:
+  	host: 127.0.0.1
+   	port: 1234
+	(R)eceive, (s)end, or (q)uit? r
+	Message: ALLO, ETO TI?
+	(R)eceive, (s)end, or (q)uit?
+
+2.(14) Запустите два экземпляра своей программы. 
+	 _______________________________________	 _______________________________________
+	|					|	|					|
+	|		1-я программа		|	|		2-я программа		|
+	|_______________________________________|	|_______________________________________|
+	|  Listening address:			|	|  Listening address:			|
+   	|  	host: 127.0.0.1			|	|  	host: 127.0.0.1			|
+   	|  	port: 123			|	|  	port: 125			|
+	|  (R)eceive, (s)end, or (q)uit? s	|	|  (R)eceive, (s)end, or (q)uit? r	|
+	|  Enter target address:		|	|  	Message: Hello!			|
+   	|  	host: 127.0.0.1			|	|  (R)eceive, (s)end, or (q)uit? s	|
+   	|  	port: 125			|	|  Enter target address:		|
+   	|  	Message: Hello!			|	|  	host: 127.0.0.1			|
+   	|  	Size of message(letters) = 6	|	|  	port: 123			|
+   	|  	Size of message(bytes) = 6	|	| 	Message: Hey!			|
+	|  (R)eceive, (s)end, or (q)uit? r	|	|  	Size of message(letters) = 4	|
+   	|  	Message: Hey!			|	|  	Size of message(bytes) = 4	|
+	|  (R)eceive, (s)end, or (q)uit? q	|	|  (R)eceive, (s)end, or (q)uit? q	|
+	|_______________________________________|	|_______________________________________|
+							
+ 	
+	
+
+3.(18) Повторите эксперимент из пункта 14. Убедитесь, что порт отправителя совпадает с выбранным 
+портом привязки в каждом случае.
+ 	 _______________________________________	 _______________________________________
+	|					|	|					|
+	|		1-я программа		|	|		2-я программа		|
+	|_______________________________________|	|_______________________________________|
+	|  Listening address:			|	|  Listening address:			|
+   	|  	host: 127.0.0.1			|	|  	host: 127.0.0.1			|
+   	|  	port: 123			|	|  	port: 125			|
+	|  (R)eceive, (s)end, or (q)uit? s	|	|  (R)eceive, (s)end, or (q)uit? r	|
+	|  Enter target address:		|	|  	Message: Hello!			|
+   	|  	host: 127.0.0.1			|	|  	Sender's address: 127.0.0.1:123	|
+   	|  	port: 125			|	|  (R)eceive, (s)end, or (q)uit? s	|
+   	|  	Message: Hello!			|	|  Enter target address:		|
+   	|  	Size of message(letters) = 6	|	|  	host: 127.0.0.1			|
+   	|  	Size of message(bytes) = 6	|	|  	port: 123			|
+	|  (R)eceive, (s)end, or (q)uit? r	|	| 	Message: Hey!			|
+   	|  	Message: Hey!			|	|  	Size of message(letters) = 4	|
+   	|  	Sender's address: 127.0.0.1:125	|	|  	Size of message(bytes) = 4	|
+	|  (R)eceive, (s)end, or (q)uit? q	|	|  (R)eceive, (s)end, or (q)uit? q	|
+	|_______________________________________|	|_______________________________________|
+ 	
+	
+4. Общее контрольное задание
+
+Учитывая условие задания, возможность только проверить, поступала ли дейтаграмма на адрес, 
+к которому привязан сокет, и если нет, не ждать ее прибытия, должна быть реализована с
+использованием флага recvfrom(). Это возможно с использованием флага MSG_DONTWAIT. В случае
+если дэйтаграмма не была передана, блокировка не происходит и приходит ошибка EAGAIN, по условию
+наличия этой ошибки - можно вывести сообщение об отсутствии дэйтаграммы. Однако в библиотеке 
+winsock2.h не присутствует возможности использования этого флага.
+
+Предположительная реализация задания:
+
+void
+check_it(SOCKET channel) {
+    array<char, 1536> message;
+    sockaddr_in address;
+    int length = sizeof(address);
+    int result = ::recvfrom(channel, &message[0], message.size(), MSG_WAITALL, 
+			(struct sockaddr*)&address, &length);
+    if (result == EAGAIN) {
+        cout << "\n   There are no new datagram's here..."
+        return;
+    }
+    if (result < 0) {
+        const int error = WSAGetLastError();
+        cerr << "ERROR: recieve() = " << error << '\n';
+        return;
+    } else {
+        cout << "   Message: ";
+        cout.write(&message[0], result);
+        cout << "\n   Sender's address: " << inet_ntoa(address.sin_addr) << ":" << ntohs(address.sin_port) << '\n';
+    }
+}
+ 
+
+	
+   	
+   	
+	
+	
+   	
+   	
+   	
+   	
+   	
+	
+   	
+   	
+	
+		
+
+
+
+
+
+
+
+

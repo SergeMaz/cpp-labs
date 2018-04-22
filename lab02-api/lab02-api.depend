@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1519932341 source:c:\users\citadel\downloads\lab02-api\main.cpp
+	<iostream>
+	<winsock2.h>
+

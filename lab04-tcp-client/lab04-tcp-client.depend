@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1522934822 source:c:\users\11olo\documents\cpp\lab04-tcp-client\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<array>
+	<stdio.h>
+	<vector>
+
+1522395190 source:f:\lab04-tcp-client\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<array>
+	<stdio.h>
+	<vector>
+

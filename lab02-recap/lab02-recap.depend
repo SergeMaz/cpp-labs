@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1519974258 source:z:\À-02-14\mazurkevichsp\lab02-recap\main.cpp
+	<stdio.h>
+	<iostream>
+	<cstdint>
+	<array>
+	<vector>
+	<ctime>
+	<cstring>
+	<winsock2.h>
+
+1519976236 source:z:\À-02-14\mazurkevichsp\net\lab02\lab02-recap\main.cpp
+	<stdio.h>
+	<iostream>
+	<cstdint>
+	<array>
+	<vector>
+	<ctime>
+	<cstring>
+	<winsock2.h>
+

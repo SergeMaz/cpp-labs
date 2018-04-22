@@ -1,0 +1,164 @@
+  _       _      ___    __        _   _                        _          _                                     
+ | |     | |    / _ \  / /       | | | |                      | |        | |                                    
+ | | __ _| |__ | | | |/ /_ ______| |_| |__  _ __ ___  __ _  __| | ___  __| |______ ___  ___ _ ____   _____ _ __ 
+ | |/ _` | '_ \| | | | '_ \______| __| '_ \| '__/ _ \/ _` |/ _` |/ _ \/ _` |______/ __|/ _ \ '__\ \ / / _ \ '__|
+ | | (_| | |_) | |_| | (_) |     | |_| | | | | |  __/ (_| | (_| |  __/ (_| |      \__ \  __/ |   \ V /  __/ |   
+ |_|\__,_|_.__/ \___/ \___/       \__|_| |_|_|  \___|\__,_|\__,_|\___|\__,_|      |___/\___|_|    \_/ \___|_|   
+                                                                                                                
+                                                                                                                 
+						ОТЧЁТ	
+				
+			Лабораторная работа № 6. Асинхронное взаимодействие на базе потоков
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+								Выполнил: 	ст. гр. А-02-14
+										Мазуркевич С.П.
+												
+								Дата выполнения:   	19.04.18
+												
+												
+												
+						Москва
+						2018 г.
+									
+ _______________________________________________________________________________________________
+
+
+1. (9) Подключитесь к серверу одним клиентом и загрузите крупный файл. Зафиксируйте в отчете вывод сервера.
+
+Server:
+
+
+   host: 127.0.0.1
+   port: 1234
+
+   Client's address: 127.0.0.1:10115
+info: client connected
+info: transferring at 18806 bytes/sec
+info: transferring at 18528 bytes/sec
+info: transferring at 18656 bytes/sec
+info: transferring at 18274 bytes/sec
+info: transferring at 18615 bytes/sec
+info: transferring at 18645 bytes/sec
+info: transferring at 18551 bytes/sec
+info: transferring at 18437 bytes/sec
+info: transferring at 18174 bytes/sec
+info: transferring at 18229 bytes/sec
+info: transferring at 18327 bytes/sec
+info: transferring at 18423 bytes/sec
+info: transferring at 18492 bytes/sec
+info: done transferring at 18560 bytes/sec
+
+Client:
+
+   host: 127.0.0.1
+   port: 1234
+> /list
+big.file
+lab06-threaded-server.cbp
+lab06-threaded-server.depend
+listing.h
+main.cpp
+really_big.file
+> /get really_big.file
+Downloading 1073741824 bytes...
+
+
+
+2. (10) Подключитесь к серверу двумя клиентами и загрузить крупный файл одновременно, также зафиксировав вывод сервера в отчете.
+
+Server:
+
+   host: 127.0.0.1
+   port: 1234
+
+   Client's address: 127.0.0.1:10140
+info: client connected
+
+   Client's address: 127.0.0.1:10141
+info: client connected
+info: transferring at 9784 bytes/sec
+info: transferring at 10181 bytes/sec
+info: transferring at 9152 bytes/sec
+info: transferring at 9759 bytes/sec
+info: transferring at 9493 bytes/sec
+info: transferring at 9813 bytes/sec
+info: transferring at 9430 bytes/sec
+info: transferring at 9552 bytes/sec
+info: transferring at 9191 bytes/sec
+info: transferring at 8730 bytes/sec
+info: transferring at 8147 bytes/sec
+info: transferring at 7720 bytes/sec
+info: transferring at 7660 bytes/sec
+info: transferring at 7358 bytes/sec
+info: transferring at 7115 bytes/sec
+info: transferring at 6895 bytes/sec
+info: transferring at 6834 bytes/sec
+info: transferring at 6563 bytes/sec
+info: transferring at 6783 bytes/sec
+info: transferring at 6141 bytes/sec
+info: transferring at 6701 bytes/sec
+info: transferring at info: transferring at 59836325 bytes/sec
+ bytes/sec
+info: transferring at 6280 bytes/sec
+info: transferring at 5836 bytes/sec
+info: transferring at info: transferring at 58506361 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 5539 bytes/sec
+6024 bytes/sec
+info: transferring at info: transferring at 56245890 bytes/sec
+ bytes/sec
+info: transferring at 6012 bytes/sec
+info: transferring at 6064 bytes/sec
+info: transferring at 6206 bytes/sec
+info: transferring at 6130 bytes/sec
+info: transferring at info: transferring at 60935984 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 61166137 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 6303 bytes/sec
+6301 bytes/sec
+info: transferring at 6329info: transferring at  bytes/sec
+6280 bytes/sec
+info: transferring at info: transferring at 64576420 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 6608 bytes/sec
+6586 bytes/sec
+info: transferring at info: transferring at 66576634 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 68156781 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 6748 bytes/sec
+6765 bytes/sec
+info: transferring at info: transferring at 68536837 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 6879 bytes/sec
+6891 bytes/sec
+info: transferring at info: transferring at 69966998 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 71227083 bytes/sec
+ bytes/sec
+info: transferring at info: transferring at 7231 bytes/sec
+7184 bytes/sec
+info: transferring at info: transferring at 7286 bytes/sec
+7332 bytes/sec
+info: transferring at info: transferring at 73817422 bytes/sec
+ bytes/sec
+info: done transferring at 7384 bytes/sec
+info: done transferring at 7329 bytes/sec
+EEinfo: client "127.0.0.1:10141" disconnected
+info: client "127.0.0.1:10140" disconnected

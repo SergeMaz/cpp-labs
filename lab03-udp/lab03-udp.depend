@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1521565938 source:c:\users\citadel\downloads\lab03-udp\main.cpp
+	<iostream>
+	<winsock2.h>
+	<array>
+
+1521737292 source:c:\users\11olo\downloads\downloads\lab03-udp\main.cpp
+	<iostream>
+	<winsock2.h>
+	<array>
+

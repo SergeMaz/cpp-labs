@@ -1,0 +1,103 @@
+# depslib dependency file v1.0
+1524161535 source:c:\users\11olo\documents\cpp\lab06-threaded-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	<thread>
+	<chrono>
+	"listing.h"
+	"sync.h"
+
+1522946605 c:\users\11olo\documents\cpp\lab06-threaded-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+
+1524157260 c:\users\11olo\documents\cpp\lab06-threaded-server\sync.h
+	<winsock2.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<cstdarg>
+	<cstdio>
+	<iostream>
+	<mutex>
+	<string>
+	<sstream>
+	<thread>
+
+1524207958 source:c:\users\stud\desktop\lab06-threaded-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	<thread>
+	<chrono>
+	"listing.h"
+	"sync.h"
+
+1522946606 c:\users\stud\desktop\lab06-threaded-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+
+1524157262 c:\users\stud\desktop\lab06-threaded-server\sync.h
+	<winsock2.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<cstdarg>
+	<cstdio>
+	<iostream>
+	<mutex>
+	<string>
+	<sstream>
+	<thread>
+
+1524207960 source:j:\lab06-threaded-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	<thread>
+	<chrono>
+	"listing.h"
+	"sync.h"
+
+1522946606 j:\lab06-threaded-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+
+1524157262 j:\lab06-threaded-server\sync.h
+	<winsock2.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<cstdarg>
+	<cstdio>
+	<iostream>
+	<mutex>
+	<string>
+	<sstream>
+	<thread>
+
