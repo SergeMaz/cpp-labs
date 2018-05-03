@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstring>
 #include "listing.h"
+#include <ctime>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ const uint32_t MAX_MESSAGE_LENGTH = 300;
 enum Type : uint8_t {
     TYPE_GET = 0x00,
     TYPE_LIST = 0x01,
+    TYPE_TIME = 0x10,
     TYPE_ERROR = 0xff
 };
 
@@ -26,6 +28,8 @@ bool serve_file(SOCKET channel, uint32_t path_length);
 bool serve_list(SOCKET channel);
 bool process_unexpected_message(SOCKET channel, uint32_t length, Type type);
 void hex_dump(const void* address, size_t count);
+bool serve_time(SOCKET channel);
+
 
 sockaddr_in
 ask_endpoint() {
@@ -70,7 +74,9 @@ int main() {
     ::listen(listener, 3);
 
     while (true) {
-        auto channel = ::accept(listener, nullptr, nullptr);
+        sockaddr_in addrClient;
+        int len = sizeof(addrClient);
+        auto channel = ::accept(listener, (sockaddr*)&addrClient, &len);
         if(channel == INVALID_SOCKET) {
             std::cout << "ERROR: accept() = " << WSAGetLastError() << std::endl;
             WSACleanup();
@@ -78,10 +84,9 @@ int main() {
             return 1;
         }
 
-        std::clog << "\n   Sender's address: " << inet_ntoa(address.sin_addr)
-                  << ":" << ntohs(address.sin_port) << '\n';
+        std::clog << "\n   Sender's address: " << inet_ntoa(addrClient.sin_addr)
+                  << ":" << ntohs(addrClient.sin_port) << '\n';
         std::clog << "info: client connected\n";
-        char byte;
         serve_requests(channel);
 
 
@@ -117,6 +122,8 @@ serve_request(SOCKET channel) {
         return serve_file(client, length - 1);
     case TYPE_LIST:
         return serve_list(client);
+    case TYPE_TIME:
+        return serve_time(client);
     default:
         return process_unexpected_message(client, length, type);
     }
@@ -134,6 +141,7 @@ receive_some(SOCKET channel, void* data, size_t size) {
         }
         bytes_received += result;
     }
+    return 1;
 }
 
 int send_some(SOCKET channel, const void* data, size_t size) {
@@ -142,6 +150,7 @@ int send_some(SOCKET channel, const void* data, size_t size) {
     if (result <= 0) {
         return result;
     }
+    return 1;
 }
 
 bool
@@ -176,7 +185,7 @@ process_unexpected_message(SOCKET channel, uint32_t length, Type type) {
 void hex_dump(const void* address, size_t count) {
     cout << "count = " << count << '\n';
     auto bytes = reinterpret_cast<const uint8_t*>(address);
-    int i;
+    unsigned int i;
     for (i = 0; i < count; i++) {
         printf("%02x ", bytes[i]);
     }
@@ -287,5 +296,17 @@ serve_list(SOCKET channel) {
         return false;
     }
 
+    return true;
+}
+
+bool
+serve_time(SOCKET channel) {
+    std::time_t serverTime = std::time(nullptr);
+    int result = send_some(channel, &serverTime, sizeof(serverTime));
+    if (result < 0) {
+        const int error = WSAGetLastError();
+        cerr << "ERROR: send_some() = " << error << '\n';
+        return false;
+    }
     return true;
 }

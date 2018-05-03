@@ -17,3 +17,22 @@
 	<sys/stat.h>
 	<unistd.h>
 
+1525266328 source:c:\users\11olo\documents\cpp_labs\c---labs\lab05-tcp-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	"listing.h"
+	<ctime>
+
+1522946606 c:\users\11olo\documents\cpp_labs\c---labs\lab05-tcp-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+

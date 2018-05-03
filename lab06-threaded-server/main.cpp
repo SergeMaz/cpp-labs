@@ -96,10 +96,9 @@ int main() {
 
 void
 serve_requests(SOCKET client, const sockaddr_in& peer) {
-    log("\n   Client's address: %s\:%d"
+    log("\n   Client's address: %s : %d"
         "\ninfo: client connected\n",
         inet_ntoa(peer.sin_addr), ntohs(peer.sin_port));
-    char byte;
     while (serve_request(client)) {
     }
     ::closesocket(client);
@@ -147,6 +146,7 @@ receive_some(SOCKET channel, void* data, size_t size) {
         }
         bytes_received += result;
     }
+    return 1;
 }
 
 int send_some(SOCKET channel, const void* data, size_t size) {
@@ -155,6 +155,7 @@ int send_some(SOCKET channel, const void* data, size_t size) {
     if (result <= 0) {
         return result;
     }
+    return 1;
 }
 
 bool
@@ -190,7 +191,7 @@ process_unexpected_message(SOCKET channel, uint32_t length, Type type) {
 void hex_dump(const void* address, size_t count) {
     cout << "count = " << count << '\n';
     auto bytes = reinterpret_cast<const uint8_t*>(address);
-    int i;
+    unsigned int i;
     for (i = 0; i < count; i++) {
         log("%02x ", bytes[i]);
     }

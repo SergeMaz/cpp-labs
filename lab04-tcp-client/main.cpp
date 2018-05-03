@@ -4,12 +4,15 @@
 #include <array>
 #include <stdio.h>
 #include <vector>
+#include <locale>
+#include <ctime>
 
 using namespace std;
 
 enum Type : uint8_t {
     TYPE_GET = 0x00,
     TYPE_LIST = 0x01,
+    TYPE_TIME = 0x10,
     TYPE_ERROR = 0xff
 };
 
@@ -22,6 +25,7 @@ bool process_unexpected_response(SOCKET channel, uint32_t length, Type type);
 bool process_get_response(SOCKET channel, const std::string& path, uint32_t file_size);
 bool list_files(SOCKET channel);
 bool process_list_response(SOCKET channel, uint32_t data_length);
+bool server_time(SOCKET channel);
 
 
 sockaddr_in
@@ -77,10 +81,13 @@ int main() {
             download(channel, path);
         } else if (command == "/list") {
             list_files(channel);
+        } else if (command == "/time") {
+            server_time(channel);
         } else {
             std::cerr << "Commands:\n"
                       "\t/get <file>\n"
                       "\t/list\n"
+                      "\t/time\n"
                       "\t/quit\n";
         }
     }
@@ -102,6 +109,7 @@ receive_some(SOCKET channel, void* data, size_t size) {
         }
         bytes_received += result;
     }
+    return 1;
 }
 
 int send_some(SOCKET channel, const void* data, size_t size) {
@@ -110,6 +118,7 @@ int send_some(SOCKET channel, const void* data, size_t size) {
     if (result <= 0) {
         return result;
     }
+    return 1;
 }
 
 bool
@@ -160,7 +169,7 @@ download(SOCKET channel, const std::string& path) {
 void hex_dump(const void* address, size_t count) {
     cout << "count = " << count << '\n';
     auto bytes = reinterpret_cast<const uint8_t*>(address);
-    int i;
+    unsigned int i;
     for (i = 0; i < count; i++) {
         printf("%02x ", bytes[i]);
     }
@@ -275,5 +284,33 @@ process_list_response(SOCKET channel, uint32_t data_length) {
         std::cout.write(file_name, entry_length);
         std::cout << '\n';
     }
+    return true;
+}
+
+bool
+server_time(SOCKET channel) {
+    uint32_t length = htonl(sizeof(Type)+4);
+    send_some(channel, &length, sizeof(length));
+    Type type = TYPE_TIME;
+    std::time_t serverTime;
+    int result = send_some(channel, &type, sizeof(type));
+    if (result < 0) {
+        const int error = WSAGetLastError();
+        cerr << "ERROR: send_some() = " << error << '\n';
+        return false;
+    }
+
+    std::clog << "Server Time: \n";
+    char buffer[100];
+
+    result = receive_some(channel, &serverTime, sizeof(serverTime));
+    if (result < 0) {
+        const int error = WSAGetLastError();
+        cerr << "ERROR: receive_some() = " << error << '\n';
+        return false;
+    }
+    std::strftime(buffer, sizeof(buffer), "%A %c", std::localtime(&serverTime));
+    std::cout << buffer << endl;
+
     return true;
 }

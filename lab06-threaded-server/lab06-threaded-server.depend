@@ -101,3 +101,37 @@
 	<sstream>
 	<thread>
 
+1525266483 source:c:\users\11olo\documents\cpp_labs\c---labs\lab06-threaded-server\main.cpp
+	<iostream>
+	<fstream>
+	<winsock2.h>
+	<stdio.h>
+	<array>
+	<vector>
+	<cstring>
+	<thread>
+	<chrono>
+	"listing.h"
+	"sync.h"
+
+1522946606 c:\users\11olo\documents\cpp_labs\c---labs\lab06-threaded-server\listing.h
+	<string>
+	<vector>
+	<windows.h>
+	<dirent.h>
+	<sys/stat.h>
+	<unistd.h>
+
+1524157262 c:\users\11olo\documents\cpp_labs\c---labs\lab06-threaded-server\sync.h
+	<winsock2.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<cstdarg>
+	<cstdio>
+	<iostream>
+	<mutex>
+	<string>
+	<sstream>
+	<thread>
+
